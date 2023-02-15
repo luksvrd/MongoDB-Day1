@@ -1,5 +1,6 @@
 // client is how the controller accesses the database. It is passed in from the route.
 import { MongoClient, ObjectId } from "mongodb";
+import data from "./data.js";
 const URI = "mongodb://localhost:27017";
 
 const client = new MongoClient(URI, {
@@ -8,22 +9,11 @@ const client = new MongoClient(URI, {
   useUnifiedTopology: true,
 });
 
-const db = client.db("bookDB");
-const bookCollection = db.collection("books");
+const db = client.db("GroceryListDB");
+const groceryListCollection = db.collection("groceryList");
 
-const controller = {
-  create(newBook) {
-    return bookCollection.insertOne(newBook);
-  },
-  createMany(newBooks) {
-    return bookCollection.insertMany(newBooks);
-  },
-  readAll() {
-    return bookCollection.find({}).toArray();
-  },
-  destroyOne(id) {
-    return bookCollection.deleteOne({ _id: new ObjectId(id) });
-  },
-};
+// /await the results of the deltetion (asynchronous)
+await groceryListCollection.deleteMany({});
+await groceryListCollection.insertMany(data);
 
 export default controller;
