@@ -1,1 +1,1 @@
-export const add2Nums = (num1, num2) => num1 + num2;
+// Create the shelter DB & then a couple routes
